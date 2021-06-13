@@ -1,6 +1,6 @@
 syntax="proto3";
 option go_package="github.com/JackTJC/backend/pb_gen";
-package goods;
+package goods_admin;
 
 //商品类型
 enum GoodsType{

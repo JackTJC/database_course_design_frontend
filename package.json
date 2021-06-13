@@ -5,11 +5,16 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "proto": "pbjs -t json-module -w commonjs -o src/proto/proto.js  src/proto/*.proto"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "google-protobuf": "^3.17.3",
+    "qs": "^6.5.2",
+    "vue": "^2.6.11",
+    "vue-axios": "^3.2.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
