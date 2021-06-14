@@ -17,6 +17,8 @@
 
 <script>
 import {CreateClient} from "@/api/client";
+import {checkTel} from "@/util/reg";
+import {stringToUint8Array} from "@/util/converter";
 var proto = require('../proto/create_client_pb')
 export default {
   name:'Register',
@@ -38,8 +40,17 @@ export default {
       client.setPasswd(this.passwd)
       let request = new proto.CreateClientRequest()
       request.setClient(client)
-      CreateClient(request.toObject())
+      if(!checkTel(this.tel)){
+        window.alert('illegal phone number')
+        return
+      }
+      CreateClient(request.toObject(),{},this.handleResponse)
+    },
+    handleResponse:function (response) {
+      var resp = new proto.CreateClientResponse.deserializeBinary(stringToUint8Array(response.data))
+
     }
   }
 }
+
 </script>

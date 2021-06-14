@@ -1,29 +1,17 @@
 import axios from "axios";
-
 axios.defaults.baseURL='http://localhost:8888'
 axios.defaults.timeout=1000
-axios.defaults.headers['Content-Type']='application/json'
+axios.defaults.headers['Content-Type']='application/octet-stream'
 
-
-
-export function httpGet({url, params={}}) {
-    axios.get(url,params).then(
-        response=>{
-
-            return Object(response.data)
-        }
-    ).catch(err=>{
-        window.alert(err)
-    })
+//处理错误的函数
+function errHandle(err = {}) {
+    window.alert(err)
 }
 
-export function httpPost(url,data={},params={}) {
-    axios.post(url,JSON.stringify(data),params).then(
-        response=>{
-            console.log(Object(response.data))
-            return Object(response.data)
-        }
-    ).catch(err=>{
-        window.alert(err)
-    })
+export function httpGet(url, params={},respHandle) {
+    axios.get(url,params).then(respHandle).catch(errHandle)
+}
+
+export function httpPost(url,data={},params={},respHandle) {
+    axios.post(url,data,params).then(respHandle).catch(errHandle)
 }

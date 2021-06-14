@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "proto": "pbjs -t json-module -w commonjs -o src/proto/proto.js  src/proto/*.proto"
+    "proto": "protoc --proto_path ~/go/src/github.com/JackTJC/backend/proto/ --js_out=import_style=commonjs,binary:/Users/bytedance/WebstormProjects/frontend/src/proto ~/go/src/github.com/JackTJC/backend/proto/*.proto\n"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -23,6 +23,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "vue-cli-plugin-vuetify": "~2.4.1",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
