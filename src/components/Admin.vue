@@ -7,7 +7,9 @@
       <vxe-button round @click="
 const {toAdminGoods} = require('@/util/skip');
 toAdminGoods()">添加商品</vxe-button>
-      <vxe-button round>查看用户订单</vxe-button>
+      <vxe-button round @click="
+const {toAdminOrder} = require('@/util/skip');
+toAdminOrder()">查看用户订单</vxe-button>
       <vxe-button round @click="
 const {toAdminUserList} = require('@/util/skip');
 toAdminUserList()">查看已注册用户</vxe-button>

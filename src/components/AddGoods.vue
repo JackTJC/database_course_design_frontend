@@ -39,6 +39,7 @@
 <script>
 import {MCreateGoods} from "@/api/goods";
 import {errHandle} from "@/util/err";
+import {identifyAdmin} from "@/util/authority";
 var common = require("../proto/common_pb")
 var proto = require('../proto/m_create_goods_pb')
 export default {
@@ -55,6 +56,8 @@ export default {
         { label: '笔记本电脑',value: 4},
       ]
     }
+  },mounted() {
+    identifyAdmin(this.$cookies,this.$fire)
   },
   methods: {
     async insertEvent (row) {
@@ -98,8 +101,9 @@ export default {
       const req=new proto.MCreateGoodsRequest()
       req.setGoodsListList(goodsList)
       console.log(req.toObject())
+      const handleResp = this.handleResp
       MCreateGoods(req.serializeBinary(),function (response) {
-        response.data.arrayBuffer().then(this.handleResp).catch(errHandle)
+        response.data.arrayBuffer().then(handleResp).catch(errHandle)
       })
     },
     handleResp(data){

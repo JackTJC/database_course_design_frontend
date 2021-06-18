@@ -7,6 +7,7 @@ const USER_ORDER='/user/order'
 const USER_PROFILE = '/user/profile'
 const ADMIN_GOODS = '/admin/goods'
 const ADMIN_USER_LIST = '/admin/user'
+const ADMIN_ORDER = '/admin/order'
 
 export function toLogin() {
     self.location=LOGIN
@@ -38,4 +39,8 @@ export function toAdminGoods() {
 
 export function toAdminUserList(){
     self.location=ADMIN_USER_LIST
+}
+
+export function toAdminOrder(){
+    self.location=ADMIN_ORDER
 }

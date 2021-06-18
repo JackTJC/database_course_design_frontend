@@ -864,7 +864,9 @@ proto.goods.Order.toObject = function(includeInstance, msg) {
     num: jspb.Message.getFieldWithDefault(msg, 4, 0),
     orderStatus: jspb.Message.getFieldWithDefault(msg, 5, 0),
     goodsName: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    price: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0)
+    price: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0),
+    clientName: jspb.Message.getFieldWithDefault(msg, 8, ""),
+    clientTel: jspb.Message.getFieldWithDefault(msg, 9, "")
   };
 
   if (includeInstance) {
@@ -928,6 +930,14 @@ proto.goods.Order.deserializeBinaryFromReader = function(msg, reader) {
     case 7:
       var value = /** @type {number} */ (reader.readFloat());
       msg.setPrice(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setClientName(value);
+      break;
+    case 9:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setClientTel(value);
       break;
     default:
       reader.skipField();
@@ -1004,6 +1014,20 @@ proto.goods.Order.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0.0) {
     writer.writeFloat(
       7,
+      f
+    );
+  }
+  f = message.getClientName();
+  if (f.length > 0) {
+    writer.writeString(
+      8,
+      f
+    );
+  }
+  f = message.getClientTel();
+  if (f.length > 0) {
+    writer.writeString(
+      9,
       f
     );
   }
@@ -1133,6 +1157,42 @@ proto.goods.Order.prototype.getPrice = function() {
  */
 proto.goods.Order.prototype.setPrice = function(value) {
   return jspb.Message.setProto3FloatField(this, 7, value);
+};
+
+
+/**
+ * optional string client_name = 8;
+ * @return {string}
+ */
+proto.goods.Order.prototype.getClientName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.goods.Order} returns this
+ */
+proto.goods.Order.prototype.setClientName = function(value) {
+  return jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
+/**
+ * optional string client_tel = 9;
+ * @return {string}
+ */
+proto.goods.Order.prototype.getClientTel = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.goods.Order} returns this
+ */
+proto.goods.Order.prototype.setClientTel = function(value) {
+  return jspb.Message.setProto3StringField(this, 9, value);
 };
 
 

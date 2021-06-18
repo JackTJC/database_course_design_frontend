@@ -21,11 +21,14 @@ toUserProfile()">我的信息</vxe-button>
 <script>
 import {toLogin} from "@/util/skip";
 import {delCookie} from "@/util/authority";
+import {identifyCommonUser} from "@/util/authority";
 
 export default {
   name:'User',
   data:function () {
 
+  },mounted() {
+    identifyCommonUser(this.$cookies,this.$fire)
   },
   methods:{
     doLogout:function() {

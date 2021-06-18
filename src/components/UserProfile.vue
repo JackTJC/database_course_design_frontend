@@ -9,6 +9,7 @@
   </div>
 </template>
 <script>
+import { identifyCommonUser} from "@/util/authority";
 export default {
   name:'UserProfile',
   data:function () {
@@ -17,6 +18,9 @@ export default {
       userName:this.$cookies.get('user-name'),
       userTel:this.$cookies.get('user-tel'),
     }
+  },
+  mounted() {
+    identifyCommonUser()
   }
 }
 </script>

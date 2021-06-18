@@ -13,6 +13,7 @@
 <script>
 import {QueryClient} from "@/api/client";
 import {errHandle} from "@/util/err";
+import {identifyAdmin} from "@/util/authority";
 var proto = require('../proto/query_client_pb')
 var common =require('../proto/common_pb')
 export default {
@@ -45,6 +46,7 @@ export default {
     },
   },
   mounted() {
+    identifyAdmin(this.$cookies,this.$fire)
     var req = new proto.QueryClientRequest()
     req.setLimit(100)
     req.setOffset(0)

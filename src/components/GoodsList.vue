@@ -38,7 +38,7 @@
         <vxe-table-column field="goodsName" title="Name"></vxe-table-column>
         <vxe-table-column field="goodsDescription" title="Desc"></vxe-table-column>
         <vxe-table-column field="pictureUrl" title="Image" type="html" show-overflow></vxe-table-column>
-        <vxe-table-column field="goodsType" title="Type"></vxe-table-column>
+        <vxe-table-column field="goodsType" title="Type" :cell-render="{options:typeList}"></vxe-table-column>
         <vxe-table-column field="price" title="Price"></vxe-table-column>
         <vxe-table-column field="discount" title="Discount"></vxe-table-column>
         <vxe-table-column field="inventory" title="Inventory"></vxe-table-column>
@@ -72,6 +72,12 @@ export default {
       name:"",
       desc:"",
       selectRow: null,
+      typeList:[
+        { value: '食品', label: 1 },
+        { value: '衣物', label: 2 },
+        { value: '手机',label: 3},
+        { value: '笔记本电脑',label: 4},
+      ]
     }
   },
   mounted() {
@@ -79,6 +85,7 @@ export default {
   },
   methods:{
     doSearch:function () {
+      this.goodsList=[]
       var req = new query_goods_proto.QueryGoodsRequest()
       req.setGoodsType(this.category)
       req.setLimit(100)//确认能全部拉下来
@@ -120,24 +127,18 @@ export default {
       }
       resp.getGoodsListList().map(
           (goods)=>{
-            goods.setPictureUrl(`<img height="100" src="${goods.getPictureUrl()}">`)
+            goods.setPictureUrl(`<img height="50" src="${goods.getPictureUrl()}">`)
             this.goodsList.push(goods.toObject())
           }
       )
-      console.log(this.goodsList)
-      console.log(resp.toObject())
     },
-    // getSelected:function () {
-    //   this.selected=this.$refs.goodsSelect.getRadioRecord()
-    //   console.log(this.selected)
-    // },
     //购买商品动作
     doBuyGoods:function () {
       this.selected=this.$refs.goodsSelect.getRadioRecord()
       var req = new create_order_proto.CreateOrderRequest()
       var order = new common.Order()
-      order.setGoodsId(this.selected.id)
-      order.setClientId(this.$cookies.get('user-id'))
+      order.setGoodsId(this.selected.goodsId)
+      order.setClientId(parseInt(this.$cookies.get('user-id'),10))
       order.setNum(1)
       order.setOrderStatus(common.OrderStatus.ORDERSTATUS_WAITPAY)
       req.setOrder(order)
@@ -164,6 +165,7 @@ export default {
           text:resp.getBaseResp().getMsg(),
           type:"error"
         })
+        return
       }
       this.$fire({
         title:"Success",

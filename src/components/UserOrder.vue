@@ -14,31 +14,45 @@
 <script>
 import {QueryOrder} from "@/api/order";
 import {errHandle} from "@/util/err";
+import {identifyCommonUser} from "@/util/authority";
 var query_order_proto=require('../proto/query_order_pb')
 var common = require('../proto/common_pb')
 export default {
   name:'UserOrder',
   data:function () {
     return{
-      orderList:[
-        {goods_name:"test_name",price:"test price",num:"1",order_status:"test"}
-      ]
+      orderList:[]
     }
   },
   mounted() {
-    var req = new query_order_proto.goods.QueryOrderRequest()
-    var order = new common.goods.Order()
-    order.setClientId(this.$cookies.get('user-id'))
+    identifyCommonUser(this.$cookies,this.$fire)
+    var req = new query_order_proto.QueryOrderRequest()
+    var order = new common.Order()
+    order.setClientId(parseInt(this.$cookies.get('user-id'),10))
     req.setOrder(order)
-    const handleResp = this.handlerResp
+    req.setLimit(100)
+    req.setOffset(0)
+    const handleResp = this.handleResp
     QueryOrder(req.serializeBinary(),function (response) {
       response.data.arrayBuffer().then(handleResp).then(errHandle)
     })
   },
   methods:{
-    handlerResp:function (data) {
+    handleResp:function (data) {
       var resp = new query_order_proto.QueryOrderResponse.deserializeBinary(new Uint8Array(data))
-      console.log(resp.toObject())
+      if(resp.getBaseResp().getErrNo()!==common.ErrNo.ERRNO_SUCCESS){
+        this.$fire({
+          title:"Internal Server Error",
+          text:resp.getBaseResp().getMsg(),
+          type:"error"
+        })
+        return
+      }
+      resp.getOrderListList().map(
+          (order)=>{
+            this.orderList.push(order.toObject())
+          }
+      )
     }
   }
 }
