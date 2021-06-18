@@ -27,3 +27,5 @@ var create_order_pb = require('./create_order_pb.js');
 goog.object.extend(proto, create_order_pb);
 var query_order_pb = require('./query_order_pb.js');
 goog.object.extend(proto, query_order_pb);
+var m_create_goods_pb = require('./m_create_goods_pb.js');
+goog.object.extend(proto, m_create_goods_pb);

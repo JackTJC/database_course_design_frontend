@@ -1,8 +1,8 @@
 import {httpPost} from "@/api/common";
 
-export function CreateClient(data = {}, params = {},respHandle) {
-     httpPost('/client/create/',data,params,respHandle)
+export function CreateClient(data = {},respHandle) {
+     httpPost('/client/create/',data,respHandle)
 }
-export function QueryClient(data = {}, params = {},respHandle)  {
-     httpPost('/client/query/',data,params,respHandle)
+export function QueryClient(data = {},respHandle)  {
+     httpPost('/client/query/',data,respHandle)
 }

@@ -862,7 +862,9 @@ proto.goods.Order.toObject = function(includeInstance, msg) {
     goodsId: jspb.Message.getFieldWithDefault(msg, 2, 0),
     clientId: jspb.Message.getFieldWithDefault(msg, 3, 0),
     num: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    orderStatus: jspb.Message.getFieldWithDefault(msg, 5, 0)
+    orderStatus: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    goodsName: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    price: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0)
   };
 
   if (includeInstance) {
@@ -918,6 +920,14 @@ proto.goods.Order.deserializeBinaryFromReader = function(msg, reader) {
     case 5:
       var value = /** @type {!proto.goods.OrderStatus} */ (reader.readEnum());
       msg.setOrderStatus(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGoodsName(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setPrice(value);
       break;
     default:
       reader.skipField();
@@ -980,6 +990,20 @@ proto.goods.Order.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0.0) {
     writer.writeEnum(
       5,
+      f
+    );
+  }
+  f = message.getGoodsName();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
+    );
+  }
+  f = message.getPrice();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      7,
       f
     );
   }
@@ -1077,6 +1101,42 @@ proto.goods.Order.prototype.setOrderStatus = function(value) {
 
 
 /**
+ * optional string goods_name = 6;
+ * @return {string}
+ */
+proto.goods.Order.prototype.getGoodsName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.goods.Order} returns this
+ */
+proto.goods.Order.prototype.setGoodsName = function(value) {
+  return jspb.Message.setProto3StringField(this, 6, value);
+};
+
+
+/**
+ * optional float price = 7;
+ * @return {number}
+ */
+proto.goods.Order.prototype.getPrice = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 7, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.goods.Order} returns this
+ */
+proto.goods.Order.prototype.setPrice = function(value) {
+  return jspb.Message.setProto3FloatField(this, 7, value);
+};
+
+
+/**
  * @enum {number}
  */
 proto.goods.GoodsType = {
@@ -1105,7 +1165,8 @@ proto.goods.OrderStatus = {
 proto.goods.ErrNo = {
   ERRNO_SUCCESS: 0,
   ERRNO_FAILED: 1,
-  ERRNO_REQ_ILLEGAL: 2
+  ERRNO_REQ_ILLEGAL: 2,
+  ERRNO_USER_HAS_EXISTED: 3
 };
 
 goog.object.extend(exports, proto.goods);

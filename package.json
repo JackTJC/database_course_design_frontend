@@ -14,7 +14,11 @@
     "google-protobuf": "^3.17.3",
     "qs": "^6.5.2",
     "vue": "^2.6.11",
-    "vue-axios": "^3.2.4"
+    "vue-axios": "^3.2.4",
+    "vue-cookies": "^1.7.4",
+    "vue-simple-alert": "^1.1.1",
+    "vxe-table": "^3.3.7",
+    "xe-utils": "^3.2.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
